@@ -2,18 +2,17 @@
 
 namespace App\Services;
 
-use DB;
-use Auth;
-use Mail;
-use Config;
-use Session;
-use Exception;
+use App\Events\UserRegisteredEmail;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserMeta;
-
-use App\Models\Role;
-use App\Events\UserRegisteredEmail;
+use Auth;
+use Config;
+use DB;
+use Exception;
 use Illuminate\Support\Facades\Schema;
+use Mail;
+use Session;
 
 class UserService
 {
@@ -123,36 +122,6 @@ class UserService
     }
 
     /**
-     * Create a user's profile
-     *
-     * @param  User $user User
-     * @param  string $password the user password
-     * @param  string $role the role of this user
-     * @param  boolean $sendEmail Whether to send the email or not
-     * @return User
-     */
-    public function create($user, $password, $role = 'member', $sendEmail = true)
-    {
-        try {
-            DB::transaction(function () use ($user, $password, $role, $sendEmail) {
-                $this->userMeta->firstOrCreate([
-                    'user_id' => $user->id
-                ]);
-
-                $this->assignRole($role, $user->id);
-
-                if ($sendEmail) {
-                    event(new UserRegisteredEmail($user, $password));
-                }
-            });
-
-            return $user;
-        } catch (Exception $e) {
-            throw new Exception("We were unable to generate your profile, please try again later.", 1);
-        }
-    }
-
-    /**
      * Update a user's profile
      *
      * @param  int $userId User Id
@@ -198,6 +167,35 @@ class UserService
     }
 
     /**
+     * Unassign all roles from the user
+     *
+     * @param  string  $roleName
+     * @param  integer $userId
+     * @return void
+     */
+    public function unassignAllRoles($userId)
+    {
+        $user = $this->model->find($userId);
+        $user->roles()->detach();
+    }
+
+    /**
+     * Assign a role to the user
+     *
+     * @param  string  $roleName
+     * @param  integer $userId
+     *
+     * @return void
+     */
+    public function assignRole($roleName, $userId)
+    {
+        $role = $this->role->findByName($roleName);
+        $user = $this->model->find($userId);
+
+        $user->roles()->attach($role);
+    }
+
+    /**
      * Invite a new member
      * @param  array $info
      * @return void
@@ -218,6 +216,36 @@ class UserService
     }
 
     /**
+     * Create a user's profile
+     *
+     * @param  User    $user      User
+     * @param  string  $password  the user password
+     * @param  string  $role      the role of this user
+     * @param  boolean $sendEmail Whether to send the email or not
+     * @return User
+     */
+    public function create($user, $password, $role = 'member', $sendEmail = true)
+    {
+        try {
+            DB::transaction(function () use ($user, $password, $role, $sendEmail) {
+                $this->userMeta->firstOrCreate([
+                    'user_id' => $user->id
+                ]);
+
+                $this->assignRole($role, $user->id);
+
+                if ($sendEmail) {
+                    event(new UserRegisteredEmail($user, $password));
+                }
+            });
+
+            return $user;
+        } catch (Exception $e) {
+            throw new Exception("We were unable to generate your profile, please try again later.", 1);
+        }
+    }
+
+    /**
      * Destroy the profile
      *
      * @param  int $id
@@ -228,7 +256,7 @@ class UserService
         try {
             return DB::transaction(function () use ($id) {
                 $this->unassignAllRoles($id);
-                $this->leaveAllTeams($id);
+                //$this->leaveAllTeams($id);
 
                 $userMetaResult = $this->userMeta->where('user_id', $id)->delete();
                 $userResult = $this->model->find($id)->delete();
@@ -239,6 +267,12 @@ class UserService
             throw new Exception("We were unable to delete this profile", 1);
         }
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Roles
+    |--------------------------------------------------------------------------
+    */
 
     /**
      * Switch user login
@@ -276,27 +310,6 @@ class UserService
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Roles
-    |--------------------------------------------------------------------------
-    */
-
-    /**
-     * Assign a role to the user
-     *
-     * @param  string $roleName
-     * @param  integer $userId
-     * @return void
-     */
-    public function assignRole($roleName, $userId)
-    {
-        $role = $this->role->findByName($roleName);
-        $user = $this->model->find($userId);
-
-        $user->roles()->attach($role);
-    }
-
     /**
      * Unassign a role from the user
      *
@@ -310,19 +323,6 @@ class UserService
         $user = $this->model->find($userId);
 
         $user->roles()->detach($role);
-    }
-
-    /**
-     * Unassign all roles from the user
-     *
-     * @param  string $roleName
-     * @param  integer $userId
-     * @return void
-     */
-    public function unassignAllRoles($userId)
-    {
-        $user = $this->model->find($userId);
-        $user->roles()->detach();
     }
 
     /*

@@ -10,13 +10,13 @@ return [
 
     'frontend-namespace' => '\App\Http\Controllers\Quarx',
 
-    'frontend-theme' => 'default',
+    'frontend-theme' => 'phpugly',
 
     'load-modules'     => true,
     'module-directory' => 'quarx/modules',
 
-    'appAdminEmail' => '',
-    'appAdminName'  => '',
+    'appAdminEmail' => 'eric@diegodev.com',
+    'appAdminName' => 'Eric Van Johnson',
 
     'storage-location' => 'local', // s3, local
 
