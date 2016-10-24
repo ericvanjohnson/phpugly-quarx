@@ -38,8 +38,8 @@ return [
         'images',
         'pages',
         'widgets',
-        'events',
-        'faqs',
+        //'events',
+        //'faqs',
     ],
 
     'forms' => [

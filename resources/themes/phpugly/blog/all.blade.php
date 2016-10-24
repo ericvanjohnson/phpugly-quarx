@@ -2,13 +2,12 @@
 
 @section('content')
 
-    <h1>Blog</h1>
+    <h1>Podcast</h1>
 
     <div class="row">
         <div class="col-md-8">
             @foreach($blogs as $blog)
-                <a href="{!! URL::to('blog/'.$blog->url) !!}"><p>{!! $blog->title !!} -
-                        <span>{!! $blog->updated_at !!}</span></p></a>
+                <a href="{!! URL::to('blog/'.$blog->url) !!}"><p>{!! $blog->title !!}</p></a>
             @endforeach
 
             {!! $blogs !!}

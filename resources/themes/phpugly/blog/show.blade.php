@@ -5,7 +5,8 @@
 
 @section('content')
 
-    <h1>{!! $blog->title !!} - <span>{!! $blog->updated_at !!}</span></h1>
+    <h1>{!! $blog->title !!}</h1>
+    <small><em>Published: {!! $blog->updated_at !!}</em></small>
     {!! $blog->entry !!}
 
 @endsection

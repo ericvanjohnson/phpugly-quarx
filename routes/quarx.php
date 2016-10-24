@@ -7,13 +7,14 @@
     */
 
     Route::group(['namespace' => 'Quarx'], function () {
-        Route::get('', 'PagesController@home');
+        //Route::get('', 'PagesController@home');
         Route::get('page', 'PagesController@all');
         Route::get('page/{url}', 'PagesController@show');
 
         Route::get('gallery', 'GalleryController@all');
         Route::get('gallery/{tag}', 'GalleryController@show');
 
+        Route::get('', 'BlogController@all');
         Route::get('blog', 'BlogController@all');
         Route::get('blog/{url}', 'BlogController@show');
         Route::get('blog/tags/{tag}', 'BlogController@tag');
