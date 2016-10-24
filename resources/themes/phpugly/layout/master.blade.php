@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Website</title>
+    <title>PHPUgly Podcast</title>
     <meta name="description" content="">
     <meta name="author" content="Eric Van Johnson (DiegoDev Group) shocm on Twitter">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">

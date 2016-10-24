@@ -13,6 +13,11 @@
 
 body {
   margin-top: 50px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+  font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.padding {
+  padding-bottom: 150px;
 }
 
 .image-bg-fluid-height,

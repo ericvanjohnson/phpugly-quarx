@@ -6,7 +6,7 @@
 @section('content')
 
     <h1>{!! $blog->title !!}</h1>
-    <small><em>Published: {!! $blog->updated_at !!}</em></small>
+    <small><em>Published: {{ date('Y-M-d', strtotime($blog->published_at)) }}</em></small>
     {!! $blog->entry !!}
 
 @endsection
