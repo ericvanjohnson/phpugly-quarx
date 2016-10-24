@@ -6,7 +6,7 @@
         <h1>Shows</h1>
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8 ">
             @foreach($blogs as $blog)
                 @if ($loop->iteration < 4)
                     <p>
@@ -17,18 +17,22 @@
                     </ul>
                     </p>
                     <hr>
-                @else
-                    @if ($loop->iteration == 4)<h2>Older Shows</h2>@endif
+                @endif
+            @endforeach
+            <h2>Archives</h2>
+            <div class="archives">
+                @foreach($blogs as $blog)
                     <p><a href="{!! URL::to('blog/'.$blog->url) !!}">{!! $blog->title !!}</a> -
                         <small><em> {{ date('Y/m/d', strtotime($blog->published_at)) }}</em></small>
                     </p>
-                @endif
-            @endforeach
+                @endforeach
+            </div>
 
             {!! $blogs !!}
         </div>
 
         <div class="col-md-4">
+            @widget('host')
             <h3>Tags</h3>
             @foreach($tags as $tag)
                 <a href="{{ url('blog/tags/'.$tag) }}" class="btn btn-default">{{ $tag }}</a>

@@ -83,3 +83,22 @@ footer {
 .homepage {
   background-image: unset;
 }
+
+.archives {
+  -webkit-column-width: 20em;
+  -webkit-column-gap: 2em;
+  -webkit-column-rule: 1px solid #eee;
+  -webkit-column-count: 4;
+  -moz-column-width: 20em;
+  -moz-column-gap: 2em;
+  -moz-column-rule: 1px solid #eee;
+  -moz-column-count: 4;
+  -ms-column-width: 20em;
+  -ms-column-gap: 2em;
+  -ms-column-rule: 1px solid #eee;
+  -ms-column-count: 4;
+  column-width: 20em;
+  column-gap: 2em;
+  column-rule: 1px solid #eee;
+  column-count: 4;
+}
