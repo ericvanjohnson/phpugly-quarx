@@ -28,8 +28,8 @@ return [
 
     'pagination' => 25,
 
-    'apiKey'   => 'gALPkYVALEtQYWztKy3d',
-    'apiToken' => 'fwCVH1bJEV3GOCyGDDNP',
+    'apiKey' => env('QUARX_APIKEY'),
+    'apiToken' => env('QUARX_APITOKEN'),
 
     'activeCoreModules' => [
         'blog',
@@ -202,7 +202,7 @@ return [
             ],
             'external_url' => [
                 'type'     => 'string',
-                'alt_name' => 'Url',
+                'alt_name' => 'Url'
             ],
             'menu_id' => [
                 'type' => 'hidden',

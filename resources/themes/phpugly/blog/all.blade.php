@@ -42,7 +42,6 @@
     </div>
 
     <div class="padding">
-        <p>With More to Come</p>
     </div>
 
 @endsection

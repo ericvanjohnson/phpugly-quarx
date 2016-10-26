@@ -10,7 +10,8 @@
         </div>
         <div class="collapse navbar-collapse" id="navBar">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url('page/about-us') }}">About Us</a></li>
+                <li><a href="{{ url('/page/about-us') }}">About Us</a></li>
+                <li><a href="{{ url('/page/other-great-podcast') }}">Other Podcast</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right menu">
                 @menu('main')
